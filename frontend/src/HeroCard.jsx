@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import { calcWinProbability } from './utils'
-import { Brain, Zap, Shield, Flame, Swords, Gauge, BatteryWarning, Globe, Skull } from 'lucide-react'D
+import { Brain, Zap, Shield, Flame, Swords, Gauge, BatteryWarning, Globe, Skull } from 'lucide-react'
 
 const STAT_ICONS = {
   intelligence: Brain,
