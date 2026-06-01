@@ -23,6 +23,18 @@ const MARVEL_THEME = {
   statHover: 'rgba(196, 30, 58, 0.35)',
 }
 
+const OTHER_THEME = {
+  primary: '#6B21A8',
+  secondary: '#4C1D95',
+  accent: '#A855F7',
+  glow: 'rgba(107, 33, 168, 0.6)',
+  border: 'linear-gradient(145deg, #C084FC, #6B21A8, #4C1D95, #6B21A8)',
+  headerBg: 'linear-gradient(135deg, #4C1D95 0%, #6B21A8 50%, #4C1D95 100%)',
+  statBg: 'rgba(107, 33, 168, 0.15)',
+  statBorder: 'rgba(107, 33, 168, 0.4)',
+  statHover: 'rgba(107, 33, 168, 0.35)',
+}
+
 const DC_THEME = {
   primary: '#0057B8',
   secondary: '#003A7A',
@@ -46,7 +58,8 @@ export default function HeroCard({
   intelActive = false
 }) {
   const isMarvel = card.publisher?.includes('Marvel')
-  const theme = isMarvel ? MARVEL_THEME : DC_THEME
+  const isDC = card.publisher?.includes('DC')
+  const theme = isMarvel ? MARVEL_THEME : isDC ? DC_THEME : OTHER_THEME
   const isWinner = roundResult?.winner === (isPlayer ? 'player' : 'cpu')
   const isLoser = roundResult && roundResult.winner !== 'tie' && !isWinner
 
@@ -113,10 +126,16 @@ export default function HeroCard({
               display: 'flex', alignItems: 'center', gap: '3px'
             }}>
               {card.publisher?.includes('Marvel') 
-                ? <><Zap size={8}/> MARVEL</>
-                : card.publisher?.includes('DC') 
-                  ? <><BatteryWarning size={8}/> DC</>
-                  : <><Globe size={8}/> OTHER</>}
+              ? <><Zap size={8}/> MARVEL</>
+              : card.publisher?.includes('DC')
+                ? <><BatteryWarning size={8}/> DC</>
+                : card.publisher === 'George Lucas'
+                  ? <><Zap size={8}/> STAR WARS</>
+                  : card.publisher === 'Shueisha'
+                    ? <><Zap size={8}/> ANIME</>
+                    : card.publisher === 'Image Comics'
+                      ? <><Globe size={8}/> IMAGE</>
+                      : <><Globe size={8}/> {card.publisher?.slice(0,10).toUpperCase() || 'OTHER'}</>}
             </span>
             {card.alignment === 'bad' && (
               <span style={{

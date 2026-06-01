@@ -139,6 +139,8 @@ section = st.sidebar.radio(
 st.sidebar.markdown("---")
 st.sidebar.markdown("**HeroClash Analytics**")
 st.sidebar.markdown("731 heroes • 428 valid • 52 per game")
+st.sidebar.markdown("20 Marvel + 20 DC + 12 Wildcards")
+
 
 df = build_df()
 stats_list = ['intelligence', 'strength', 'speed', 'durability', 'power', 'combat']
@@ -154,7 +156,7 @@ GOLD = '#FFD700'
 # ════════════════════════════════
 if section == "◆  Overview":
     st.markdown("# ◆ HEROCLASH ANALYTICS DASHBOARD")
-    st.markdown("### Marvel vs DC • 731 Heroes • Data Science Deep Dive")
+    st.markdown("### Marvel vs DC vs Everyone • 731 Heroes • Data Science Deep Dive")
     st.markdown("""
     > **Dynamic Deck System** — Every game deals a fresh random 22 Marvel + 22 DC + 8 wildcard 
     > heroes and villains sampled from 428 valid characters. K-Means clustering was used to 
@@ -437,12 +439,12 @@ elif section == "◇  Deck Intelligence":
 
     deck_df = pd.DataFrame(deck_rows)
 
-    col1, col2, col3, col4, col5 = st.columns(5)
-    col1.metric("Cards/Game", "52")
-    col2.metric("Marvel Pool", "270")
-    col3.metric("DC Pool", "158")
-    col4.metric("Other Pool", str(len(valid[~valid['publisher'].isin(['Marvel Comics', 'DC Comics'])])))
-    col5.metric("Combinations", "270×158")
+        col1, col2, col3, col4, col5 = st.columns(5)
+        col1.metric("Cards/Game", "52")
+        col2.metric("Marvel Pool", "270")
+        col3.metric("DC Pool", "158")
+        col4.metric("Other Pool", str(len(valid[~valid['publisher'].isin(['Marvel Comics', 'DC Comics'])])))
+        col5.metric("Mix", "20+20+12")
 
     st.markdown("#### K-Means Deck vs Random 52")
     random_52 = valid.sample(52, random_state=99)

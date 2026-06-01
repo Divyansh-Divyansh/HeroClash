@@ -6,10 +6,10 @@ router = APIRouter()
 
 @router.get("/deck")
 def get_deck():
-    """Return 52 randomly sampled heroes AND villains from all publishers."""
+    """Return 52 randomly sampled heroes from ALL publishers."""
     heroes = load_heroes()
 
-    # Filter only by valid stats — include everyone
+    # Filter only by valid stats — include EVERYONE
     valid = []
     for hero in heroes:
         stats = parse_stats(hero)
@@ -20,14 +20,14 @@ def get_deck():
     # Split by universe for balance
     marvel = [h for h in valid if "Marvel" in h["biography"]["publisher"]]
     dc = [h for h in valid if "DC" in h["biography"]["publisher"]]
-    others = [h for h in valid if 
-              "Marvel" not in h["biography"]["publisher"] and 
+    others = [h for h in valid if
+              "Marvel" not in h["biography"]["publisher"] and
               "DC" not in h["biography"]["publisher"]]
 
-    # Sample 22 Marvel + 22 DC + 8 wildcards (other publishers)
-    marvel_sample = random.sample(marvel, min(22, len(marvel)))
-    dc_sample = random.sample(dc, min(22, len(dc)))
-    other_sample = random.sample(others, min(8, len(others)))
+    # 20 Marvel + 20 DC + 12 wildcards
+    marvel_sample = random.sample(marvel, min(20, len(marvel)))
+    dc_sample = random.sample(dc, min(20, len(dc)))
+    other_sample = random.sample(others, min(12, len(others)))
 
     deck = marvel_sample + dc_sample + other_sample
     random.shuffle(deck)
@@ -35,11 +35,12 @@ def get_deck():
     cards = []
     for hero in deck:
         stats = hero["powerstats"]
+        publisher = hero["biography"]["publisher"]
         try:
             cards.append({
                 "id": hero["id"],
                 "name": hero["name"],
-                "publisher": hero["biography"]["publisher"],
+                "publisher": publisher,
                 "alignment": hero["biography"]["alignment"],
                 "image": hero["image"]["url"],
                 "stats": {
