@@ -439,12 +439,12 @@ elif section == "◇  Deck Intelligence":
 
     deck_df = pd.DataFrame(deck_rows)
 
-        col1, col2, col3, col4, col5 = st.columns(5)
-        col1.metric("Cards/Game", "52")
-        col2.metric("Marvel Pool", "270")
-        col3.metric("DC Pool", "158")
-        col4.metric("Other Pool", str(len(valid[~valid['publisher'].isin(['Marvel Comics', 'DC Comics'])])))
-        col5.metric("Mix", "20+20+12")
+    col1, col2, col3, col4, col5 = st.columns(5)
+    col1.metric("Cards/Game", "52")
+    col2.metric("Marvel Pool", "270")
+    col3.metric("DC Pool", "158")
+    col4.metric("Other Pool", str(len(valid[~valid['publisher'].isin(['Marvel Comics', 'DC Comics'])])))
+    col5.metric("Mix", "20+20+12")
 
     st.markdown("#### K-Means Deck vs Random 52")
     random_52 = valid.sample(52, random_state=99)
