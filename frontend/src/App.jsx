@@ -55,13 +55,15 @@ return (
         animate={{ y: 0, opacity: 1 }}
         className="text-center mb-8"
       >
-        <h1 className="text-5xl font-black tracking-wider"
-          style={{ fontFamily: "'Bebas Neue', sans-serif", letterSpacing: '0.1em' }}>
-          ⚡ HEROCLASH
-        </h1>
-        <p className="text-gray-500 text-sm tracking-widest uppercase mt-1">
-          Marvel vs DC • Card Battle
-        </p>
+        <img
+          src="/logo.png"
+          alt="HeroClash"
+          style={{
+            height: '300px',
+            margin: '0 auto',
+            filter: 'drop-shadow(0 0 20px rgba(255,100,100,0.4)) drop-shadow(0 0 20px rgba(100,100,255,0.4))'
+          }}
+        />
       </motion.div>
 
       <AnimatePresence mode="wait">

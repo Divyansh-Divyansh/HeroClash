@@ -1,13 +1,14 @@
 import { motion } from 'framer-motion'
 import { calcWinProbability } from './utils'
+import { Brain, Zap, Shield, Flame, Swords, Gauge, BatteryWarning, Globe, Skull } from 'lucide-react'D
 
 const STAT_ICONS = {
-  intelligence: '🧠',
-  strength: '💪',
-  speed: '⚡',
-  durability: '🛡️',
-  power: '🔥',
-  combat: '⚔️'
+  intelligence: Brain,
+  strength: Gauge,
+  speed: Zap,
+  durability: Shield,
+  power: Flame,
+  combat: Swords
 }
 
 const MARVEL_THEME = {
@@ -96,15 +97,40 @@ export default function HeroCard({
           <div style={{
             position: 'absolute', top: '14px', left: '50%',
             transform: 'translateX(-50%)', zIndex: 10,
-            background: theme.headerBg,
-            padding: '2px 10px', borderRadius: '20px',
-            border: `1px solid ${theme.accent}`,
-            fontSize: '9px', fontWeight: '900',
-            letterSpacing: '0.15em', color: 'white',
-            fontFamily: "'Bebas Neue', sans-serif",
-            boxShadow: `0 2px 8px ${theme.glow}`
+            display: 'flex', gap: '4px'
           }}>
-            {isMarvel ? '⚡ MARVEL' : '🦇 DC COMICS'}
+            <span style={{
+              background: card.publisher?.includes('Marvel') 
+                ? 'rgba(196,30,58,0.9)' 
+                : card.publisher?.includes('DC')
+                  ? 'rgba(0,87,184,0.9)'
+                  : 'rgba(80,80,80,0.9)',
+              padding: '2px 8px', borderRadius: '20px',
+              fontSize: '9px', fontWeight: '900',
+              letterSpacing: '0.15em', color: 'white',
+              fontFamily: "'Bebas Neue', sans-serif",
+              border: '1px solid rgba(255,255,255,0.2)',
+              display: 'flex', alignItems: 'center', gap: '3px'
+            }}>
+              {card.publisher?.includes('Marvel') 
+                ? <><Zap size={8}/> MARVEL</>
+                : card.publisher?.includes('DC') 
+                  ? <><BatteryWarning size={8}/> DC</>
+                  : <><Globe size={8}/> OTHER</>}
+            </span>
+            {card.alignment === 'bad' && (
+              <span style={{
+                background: 'rgba(180,0,0,0.9)',
+                padding: '2px 8px', borderRadius: '20px',
+                fontSize: '9px', fontWeight: '900',
+                letterSpacing: '0.15em', color: 'white',
+                fontFamily: "'Bebas Neue', sans-serif",
+                border: '1px solid rgba(255,0,0,0.3)',
+                display: 'flex', alignItems: 'center', gap: '3px'
+              }}>
+                <Skull size={8}/> VILLAIN
+              </span>
+            )}
           </div>
         )}
 
@@ -207,9 +233,17 @@ export default function HeroCard({
                   boxShadow: isSelected ? `0 0 10px ${theme.glow}` : 'none'
                 }}
               >
-                <span style={{ fontSize: '13px', width: '18px' }}>
-                  {STAT_ICONS[stat]}
-                </span>
+                {(() => {
+                  const Icon = STAT_ICONS[stat]
+                  return (
+                    <Icon
+                      size={14}
+                      strokeWidth={2.5}
+                      color={isSelected ? 'white' : theme.accent}
+                      style={{ minWidth: '14px' }}
+                    />
+                  )
+                })()}
                 <span style={{
                   flex: 1, textAlign: 'left',
                   fontSize: '11px', fontWeight: '700',
@@ -284,20 +318,27 @@ export default function HeroCard({
       {roundResult && isWinner && (
         <motion.div
           initial={{ scale: 0, rotate: -15 }}
-          animate={{ scale: 1, rotate: -8 }}
+          animate={{ scale: 1, rotate: -5 }}
           transition={{ type: 'spring', bounce: 0.6 }}
           style={{
-            position: 'absolute', top: '40%', left: '50%',
-            transform: 'translate(-50%, -50%) rotate(-8deg)',
-            background: 'linear-gradient(135deg, rgba(255,215,0,0.85), rgba(255,165,0,0.85))',
-            backdropFilter: 'blur(4px)',
-            color: '#000', fontWeight: '900',
-            fontSize: '28px', padding: '10px 20px',
-            borderRadius: '12px', zIndex: 20,
+            position: 'absolute',
+            top: '185px',
+            left: '50%',
+            transform: 'translateX(-50%) rotate(-5deg)',
+            background: 'rgba(255, 215, 0, 0.25)',
+            backdropFilter: 'blur(6px)',
+            WebkitBackdropFilter: 'blur(6px)',
+            color: '#FFD700',
+            fontWeight: '900',
+            fontSize: '24px',
+            padding: '8px 24px',
+            borderRadius: '12px',
+            zIndex: 20,
             fontFamily: "'Bebas Neue', sans-serif",
             letterSpacing: '0.1em',
-            boxShadow: '0 0 30px rgba(255,215,0,0.8), 0 4px 15px rgba(0,0,0,0.5)',
-            border: '3px solid rgba(255,255,255,0.4)'
+            boxShadow: '0 0 30px rgba(255,215,0,0.3)',
+            border: '2px solid rgba(255,215,0,0.4)',
+            whiteSpace: 'nowrap'
           }}
         >
           ⭐ WIN!

@@ -2,6 +2,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect } from 'react'
 import HeroCard from './HeroCard'
 import ScoreBar from './ScoreBar'
+import { Eye, EyeOff, Zap } from 'lucide-react'
 
 export default function GameBoard({ game, allCards }) {
   const { 
@@ -75,7 +76,7 @@ export default function GameBoard({ game, allCards }) {
                         : 'none'
                     }}
                 >
-                    {i < game.intelTokens ? '⚡' : '○'}
+                    {i < game.intelTokens ? <Zap size={12} color="#000"/> : '○'}
                 </motion.div>
                 ))}
             </div>
@@ -111,7 +112,14 @@ export default function GameBoard({ game, allCards }) {
                     : 'none'
                 }}
             >
-                {game.intelActive ? '🔍 INTEL ACTIVE' : game.intelTokens > 0 ? '⚡ USE INTEL' : '✗ NO INTEL LEFT'}
+                <span style={{ display: 'flex', alignItems: 'center', gap: '6px' }}>
+                  {game.intelActive 
+                    ? <><Eye size={14}/> INTEL ACTIVE</>
+                    : game.intelTokens > 0 
+                      ? <><Zap size={14}/> USE INTEL</>
+                      : <><EyeOff size={14}/> NO INTEL LEFT</>
+                  }
+                </span>
             </motion.button>
             </div>
 
@@ -147,7 +155,9 @@ export default function GameBoard({ game, allCards }) {
                 transition={{ duration: 1, repeat: Infinity }}
                 className="text-yellow-400 text-sm font-bold tracking-widest uppercase"
             >
-                ⏳ CPU is thinking...
+              <span style={{ display: 'flex', alignItems: 'center', gap: '6px', justifyContent: 'center' }}>
+                <Zap size={14}/> CPU IS THINKING...
+              </span>
             </motion.p>
             ) : (
             <p className="text-gray-400 text-sm">
@@ -268,7 +278,9 @@ export default function GameBoard({ game, allCards }) {
             boxShadow: '0 0 30px rgba(255,215,0,0.5), 0 4px 15px rgba(0,0,0,0.4)'
           }}
         >
-          ⚡ NEXT ROUND →
+          <span style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+            <Zap size={18}/> NEXT ROUND →
+          </span>
         </motion.button>
       )}
     </div>
