@@ -76,14 +76,14 @@ def load_deck():
 
 def load_game_stats():
     try:
-        response = requests.get("http://localhost:8000/api/game/stats")
+        response = requests.get("https://heroclash-backend.onrender.com/api/game/stats")
         return response.json()
     except:
         return None
 
 def load_game_history():
     try:
-        response = requests.get("http://localhost:8000/api/game/history")
+        response = requests.get("https://heroclash-backend.onrender.com/api/game/history")
         return response.json().get("games", [])
     except:
         return []
