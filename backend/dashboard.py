@@ -6,6 +6,9 @@ from plotly.subplots import make_subplots
 import json
 import requests
 import numpy as np
+import os
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
 # ── Page config ──
 st.set_page_config(
@@ -61,12 +64,14 @@ st.markdown("""
 # ── Load Data ──
 @st.cache_data
 def load_heroes():
-    with open("app/data/heroes.json") as f:
+    path = os.path.join(BASE_DIR, "app/data/heroes.json")
+    with open(path) as f:
         return json.load(f)
 
 @st.cache_data
 def load_deck():
-    with open("app/data/deck.json") as f:
+    path = os.path.join(BASE_DIR, "app/data/deck.json")
+    with open(path) as f:
         return json.load(f)
 
 def load_game_stats():
@@ -114,7 +119,11 @@ def build_df():
     return pd.DataFrame(rows)
 
 # ── Sidebar ──
-st.sidebar.image("app/data/../../../frontend/public/logo.png", use_container_width=True)
+logo_path = os.path.join(BASE_DIR, "../frontend/public/logo.png")
+if os.path.exists(logo_path):
+    st.sidebar.image(logo_path, use_container_width=True)
+else:
+    st.sidebar.markdown("# ⚡ HEROCLASH")
 st.sidebar.markdown("---")
 section = st.sidebar.radio(
     "Navigate",
