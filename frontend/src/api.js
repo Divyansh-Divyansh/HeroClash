@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL = 'http://localhost:8000'
+const BASE_URL = 'https://heroclash-backend.onrender.com'
 
 export const fetchDeck = async () => {
   const response = await axios.get(`${BASE_URL}/api/heroes/deck`)
