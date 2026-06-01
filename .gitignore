@@ -19,13 +19,9 @@ Thumbs.db
 
 *.docx
 
-# Media files
-*.png
-*.jpg
-*.jpeg
-*.mp4
-*.mov
-*.gif
-
-# Jupyter checkpoints
-.ipynb_checkpoints/
+# Media files at root level only
+/Front.png
+/Mid-Game.png
+/Most Powerful.png
+/Recording 2026-06-01 195403.mp4
+/Streamlit Analysis.png
