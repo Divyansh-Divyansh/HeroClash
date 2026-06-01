@@ -18,3 +18,14 @@ backend/app/data/deck.json
 Thumbs.db
 
 *.docx
+
+# Media files
+*.png
+*.jpg
+*.jpeg
+*.mp4
+*.mov
+*.gif
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
